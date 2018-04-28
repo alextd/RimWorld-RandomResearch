@@ -66,7 +66,7 @@ namespace Random_Research
 
 		public static Rect HideFillableBar(Rect rect, float fillPercent, Texture2D fillTex, Texture2D bgTex, bool doBorder)
 		{
-			if (!BlindResearch.CanSeeCurrent())
+			if (!BlindResearch.CanSeeProgress(fillPercent))
 				fillPercent = 0;
 			return Widgets.FillableBar(rect, fillPercent, fillTex, bgTex, doBorder);
 		}

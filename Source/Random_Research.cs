@@ -7,6 +7,7 @@ namespace Random_Research
 {
 	public class Mod : Verse.Mod
 	{
+		HarmonyInstance harmony;
 		public Mod(ModContentPack content) : base(content)
 		{
 			// initialize settings
@@ -14,8 +15,12 @@ namespace Random_Research
 #if DEBUG
 			HarmonyInstance.DEBUG = true;
 #endif
-			HarmonyInstance harmony = HarmonyInstance.Create("Uuugggg.rimworld.Random_Research.main");
+			harmony = HarmonyInstance.Create("Uuugggg.rimworld.Random_Research.main");
 			harmony.PatchAll(Assembly.GetExecutingAssembly());
+		}
+		public static HarmonyInstance Harmony()
+		{
+			return LoadedModManager.GetMod<Random_Research.Mod>().harmony;
 		}
 
 //		public override void DoSettingsWindowContents(Rect inRect)

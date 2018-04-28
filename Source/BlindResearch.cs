@@ -10,8 +10,12 @@ namespace Random_Research
 	{
 		public static bool CanSeeCurrent()
 		{
-			return DebugSettings.godMode ||
-				Find.ResearchManager.currentProj?.ProgressPercent >= 0.5f;
+			return CanSeeProgress(Find.ResearchManager.currentProj?.ProgressPercent ?? 0);
+		}
+
+		public static bool CanSeeProgress(float progress)
+		{
+			return DebugSettings.godMode || progress >= 0.5f;
 		}
 
 		public static bool CanChangeCurrent()

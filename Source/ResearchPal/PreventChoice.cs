@@ -12,9 +12,26 @@ using ResearchPal;
 
 namespace Random_Research.ResearchPal
 {
-	[HarmonyPatch(typeof(Node), "Draw")]
+	//[HarmonyPatch(typeof(Node), "Draw")]
+	[StaticConstructorOnStartup]
 	public class PreventChoice
 	{
+		static PreventChoice()
+		{
+			try
+			{
+				Patch();
+			}
+			catch (Exception ) { }
+		}
+
+		public static void Patch()
+		{
+			HarmonyInstance harmony = Mod.Harmony();
+			harmony.Patch(AccessTools.Method(typeof(Node), "Draw"), null, null,
+				new HarmonyMethod(typeof(PreventChoice), "Transpiler"));
+		}
+
 		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
 			MethodInfo ButtonInvisibleInfo = AccessTools.Method(typeof(Widgets), "ButtonInvisible");

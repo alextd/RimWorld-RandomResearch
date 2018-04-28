@@ -12,9 +12,26 @@ using ResearchPal;
 
 namespace Random_Research.ResearchPal
 {
-	[HarmonyPatch(typeof(Node), "Draw")]
-	public class HideCurrent
+	//[HarmonyPatch(typeof(Node), "Draw")]
+	[StaticConstructorOnStartup]
+	public static class HideCurrent
 	{
+		static HideCurrent()
+		{
+			try
+			{
+				Patch();
+			}
+			catch (Exception) { }
+		}
+
+		public static void Patch()
+		{
+			HarmonyInstance harmony = Mod.Harmony();
+			harmony.Patch(AccessTools.Method(typeof(Node), "Draw"), null, null,
+				new HarmonyMethod(typeof(HideCurrent), "Transpiler"));
+		}
+
 		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
 			MethodInfo ProgressPercentInfo = AccessTools.Property(typeof(ResearchProjectDef), "ProgressPercent").GetGetMethod();
@@ -32,7 +49,7 @@ namespace Random_Research.ResearchPal
 		
 		public static float HideProgressPercent(float progress)
 		{
-			return BlindResearch.CanSeeCurrent() ? progress : 0;
+			return BlindResearch.CanSeeProgress(progress) ? progress : 0;
 		}
 	}
 }
