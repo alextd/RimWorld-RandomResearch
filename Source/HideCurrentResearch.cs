@@ -17,6 +17,8 @@ namespace Random_Research
 		//public override void PreOpen()
 		public static void Postfix(MainTabWindow_Research __instance)
 		{
+			if (BlindResearch.CanSeeCurrent()) return;
+
 			AccessTools.Field(typeof(MainTabWindow_Research), "selectedProject").SetValue(__instance, null);
 			//__instance.selectedProject = null;
 			AccessTools.Property(typeof(MainTabWindow_Research), "CurTab").GetSetMethod(true).Invoke(__instance, new object[] { ResearchTabDefOf.Main });
@@ -54,12 +56,13 @@ namespace Random_Research
 
 		public static bool AndShowIt(bool selectedCurrent)
 		{
-			return selectedCurrent && false;
+			return selectedCurrent && BlindResearch.CanSeeCurrent();
 		}
 
 		public static Rect HideFillableBar(Rect rect, float fillPercent, Texture2D fillTex, Texture2D bgTex, bool doBorder)
 		{
-			fillPercent = 0;
+			if (!BlindResearch.CanSeeCurrent())
+				fillPercent = 0;
 			return Widgets.FillableBar(rect, fillPercent, fillTex, bgTex, doBorder);
 		}
 	}
@@ -86,8 +89,7 @@ namespace Random_Research
 
 		public static Color ReplaceColor(Color activeTex)
 		{
-			return TexUI.AvailResearchColor;
-			//return activeTex;
+			return BlindResearch.CanSeeCurrent() ? activeTex : TexUI.AvailResearchColor;
 		}
 	}
 }

@@ -32,8 +32,7 @@ namespace Random_Research
 
 		public static bool HideButtonText(Rect rect, string label, bool drawBackground, bool doMouseoverSound, bool active)
 		{
-			return false;
-			//return Widgets.ButtonText(rect, label, drawBackground, doMouseoverSound, active);//
+			return BlindResearch.CanSeeCurrent() ? Widgets.ButtonText(rect, label, drawBackground, doMouseoverSound, active) : false;
 		}
 	}
 }
