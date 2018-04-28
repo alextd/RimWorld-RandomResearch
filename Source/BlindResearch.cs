@@ -10,7 +10,8 @@ namespace Random_Research
 	{
 		public static bool CanSeeCurrent()
 		{
-			return DebugSettings.godMode;
+			return DebugSettings.godMode ||
+				Find.ResearchManager.currentProj?.ProgressPercent >= 0.5f;
 		}
 	}
 }
