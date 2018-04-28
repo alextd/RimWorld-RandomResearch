@@ -30,11 +30,18 @@ namespace Random_Research
 		//private void DrawLeftRect(Rect leftOutRect)
 		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
+			MethodInfo FillableBarInfo = AccessTools.Method(typeof(Widgets), "FillableBar", new Type[]
+				{ typeof(Rect), typeof(float), typeof(Texture2D), typeof(Texture2D), typeof(bool)});
+
 			MethodInfo AndShowIt = AccessTools.Method(typeof(HideCurrentResearch_LeftRect), "AndShowIt");
+			MethodInfo HideFillableBarInfo = AccessTools.Method(typeof(HideCurrentResearch_LeftRect), "HideFillableBar");
 
 			foreach (CodeInstruction i in instructions)
 			{
-				if(i.opcode == OpCodes.Bne_Un)	// if (i1 != i2)
+				if (i.opcode == OpCodes.Call && i.operand == FillableBarInfo)
+					i.operand = HideFillableBarInfo;
+
+				if (i.opcode == OpCodes.Bne_Un)	// if (i1 != i2)
 				{
 					yield return new CodeInstruction(OpCodes.Ceq);//bool result = i1 == i2
 					yield return new CodeInstruction(OpCodes.Call, AndShowIt);	//result = AndShowIt(result)
@@ -48,6 +55,12 @@ namespace Random_Research
 		public static bool AndShowIt(bool selectedCurrent)
 		{
 			return selectedCurrent && false;
+		}
+
+		public static Rect HideFillableBar(Rect rect, float fillPercent, Texture2D fillTex, Texture2D bgTex, bool doBorder)
+		{
+			fillPercent = 0;
+			return Widgets.FillableBar(rect, fillPercent, fillTex, bgTex, doBorder);
 		}
 	}
 
