@@ -34,9 +34,11 @@ namespace Random_Research
 		{
 			MethodInfo FillableBarInfo = AccessTools.Method(typeof(Widgets), "FillableBar", new Type[]
 				{ typeof(Rect), typeof(float), typeof(Texture2D), typeof(Texture2D), typeof(bool)});
+			MethodInfo GetProgressApparentInfo = AccessTools.Property(typeof(ResearchProjectDef), "ProgressApparent").GetGetMethod();
 
 			MethodInfo AndShowIt = AccessTools.Method(typeof(HideCurrentResearch_LeftRect), "AndShowIt");
 			MethodInfo HideFillableBarInfo = AccessTools.Method(typeof(HideCurrentResearch_LeftRect), "HideFillableBar");
+			MethodInfo HideProgressApparentInfo = AccessTools.Method(typeof(HideCurrentResearch_LeftRect), "HideProgressApparent");
 
 			foreach (CodeInstruction i in instructions)
 			{
@@ -51,6 +53,9 @@ namespace Random_Research
 				}
 				else
 					yield return i;
+
+				if (i.opcode == OpCodes.Callvirt && i.operand == GetProgressApparentInfo)
+					yield return new CodeInstruction(OpCodes.Call, HideProgressApparentInfo);
 			}
 		}
 
@@ -64,6 +69,11 @@ namespace Random_Research
 			if (!BlindResearch.CanSeeCurrent())
 				fillPercent = 0;
 			return Widgets.FillableBar(rect, fillPercent, fillTex, bgTex, doBorder);
+		}
+
+		public static float HideProgressApparent(float progress)
+		{
+			return BlindResearch.CanSeeCurrent() ? progress : 0;
 		}
 	}
 
