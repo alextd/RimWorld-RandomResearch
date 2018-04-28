@@ -7,6 +7,7 @@ using System.Reflection.Emit;
 using Harmony;
 using Verse;
 using RimWorld;
+using UnityEngine;
 
 namespace Random_Research
 {
@@ -47,6 +48,33 @@ namespace Random_Research
 		public static bool AndShowIt(bool selectedCurrent)
 		{
 			return selectedCurrent && false;
+		}
+	}
+
+	[HarmonyPatch(typeof(MainTabWindow_Research), "DrawRightRect")]
+	class HideCurrentResearch_RightRect
+	{
+		//private void DrawRightRect(Rect rightOutRect)
+		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+		{
+			FieldInfo ActiveResearchColorInfo = AccessTools.Field(typeof(TexUI), "ActiveResearchColor");
+
+			MethodInfo ReplaceColorInfo = AccessTools.Method(typeof(HideCurrentResearch_RightRect), "ReplaceColor");
+
+			foreach (CodeInstruction i in instructions)
+			{
+				yield return i;
+				if (i.opcode == OpCodes.Ldsfld && i.operand == ActiveResearchColorInfo)
+				{
+					yield return new CodeInstruction(OpCodes.Call, ReplaceColorInfo);
+				}
+			}
+		}
+
+		public static Color ReplaceColor(Color activeTex)
+		{
+			return TexUI.AvailResearchColor;
+			//return activeTex;
 		}
 	}
 }
