@@ -13,5 +13,10 @@ namespace Random_Research
 			return DebugSettings.godMode ||
 				Find.ResearchManager.currentProj?.ProgressPercent >= 0.5f;
 		}
+
+		public static bool CanChangeCurrent()
+		{
+			return DebugSettings.godMode;
+		}
 	}
 }
