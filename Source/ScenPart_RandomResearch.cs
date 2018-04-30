@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using Harmony;
 using UnityEngine;
 using Verse;
 using RimWorld;
@@ -53,6 +55,36 @@ namespace Random_Research
 			{
 				Find.ResearchManager.currentProj = research;
 			}
+		}
+	}
+	[DefOf]
+	public static class ScenPartDefOf
+	{
+		public static ScenPartDef RandomResearch;
+	}
+
+		[HarmonyPatch(typeof(Dialog_DebugActionsMenu), "DoListingItems_AllModePlayActions")]
+	public static class Debug_AddRandomResearch
+	{
+		public static void Postfix(Dialog_DebugActionsMenu __instance)
+		{
+			MethodInfo DebugActionInfo = AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugAction");
+			Action go = () => {
+				if (BlindResearch.Active()) return;
+
+				FieldInfo partsInfo = AccessTools.Field(typeof(Scenario), "parts");
+				List<ScenPart> list = (List<ScenPart>)partsInfo.GetValue(Find.Scenario);
+				list.Add(ScenarioMaker.MakeScenPart(ScenPartDefOf.RandomResearch));
+			};
+			Action noGo = () => {
+				if (!BlindResearch.Active()) return;
+
+				FieldInfo partsInfo = AccessTools.Field(typeof(Scenario), "parts");
+				List<ScenPart> list = (List<ScenPart>)partsInfo.GetValue(Find.Scenario);
+				list.RemoveAll(p => p is ScenPart_RandomResearch);
+			};
+			DebugActionInfo.Invoke(__instance, new object[] { "Make Research Random", go });
+			DebugActionInfo.Invoke(__instance, new object[] { "Remove Random Research", noGo });
 		}
 	}
 }
