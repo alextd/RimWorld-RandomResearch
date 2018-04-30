@@ -8,6 +8,11 @@ namespace Random_Research
 {
 	public static class BlindResearch
 	{
+		public static bool Active()
+		{
+			return Find.Scenario.AllParts.Any(p => p is ScenPart_RandomResearch);
+		}
+
 		public static bool CanSeeCurrent()
 		{
 			return CanSeeProgress(Find.ResearchManager.currentProj?.ProgressPercent ?? 0);
@@ -15,12 +20,12 @@ namespace Random_Research
 
 		public static bool CanSeeProgress(float progress)
 		{
-			return DebugSettings.godMode || progress >= 0.5f;
+			return !Active() || DebugSettings.godMode || progress >= 0.5f;
 		}
 
 		public static bool CanChangeCurrent()
 		{
-			return DebugSettings.godMode;
+			return !Active() || DebugSettings.godMode;
 		}
 	}
 }

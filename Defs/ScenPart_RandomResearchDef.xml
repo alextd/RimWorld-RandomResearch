@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	
+	<ScenPartDef>
+		<defName>RandomResearch</defName>
+		<label>random research</label>
+		<scenPartClass>Random_Research.ScenPart_RandomResearch</scenPartClass>
+		<category>Misc</category>
+		<summaryPriority>410</summaryPriority>
+	</ScenPartDef>
+	
+</Defs>
