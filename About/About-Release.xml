@@ -10,6 +10,8 @@ When choosing a scenario, Click 'Scenario Editor', Check on 'Edit mode', Click '
 
 You can turn on Random Research without a new game by using the Development mode. Options Menu, Check on Development Mode. Press '/' Key to open the debug action list. "Make Research Random" should be last in the list. The percentage can be set by editing the save file: Add "&lt;blindThreshold&gt;0.5&lt;/blindThreshold&gt;" after the line "&lt;def&gt;RandomResearch&lt;/def&gt;"
 
-And if you turn on God Mode, this is all disabled.</description>
+Similarly, Random Research can be turned off from the Development mode. That is also required to make it safe to remove from the modlist.
+
+And if you turn on God Mode, this is all disabled and research works as normal.</description>
 	<url>https://steamcommunity.com/id/Uuugggg/myworkshopfiles/?appid=294100</url>
 </ModMetaData>
