@@ -5,7 +5,7 @@
 		<defName>RandomResearch</defName>
 		<label>random research</label>
 		<scenPartClass>Random_Research.ScenPart_RandomResearch</scenPartClass>
-		<category>Misc</category>
+		<category>Rule</category>
 		<summaryPriority>410</summaryPriority>
 	</ScenPartDef>
 	
