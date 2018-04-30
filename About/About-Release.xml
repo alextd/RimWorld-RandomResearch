@@ -3,6 +3,13 @@
 	<name>Random Research</name>
 	<author>Uuugggg</author>
 	<targetVersion>0.18.0</targetVersion>
-	<description>Research projects are decided randomly</description>
+	<description>A scenario option for random research, with optional blind research: You don't even know what is being researched (until a certain amount of progress is made)
+
+When choosing a scenario, Click 'Scenario Editor', Check on 'Edit mode', Click 'Add part', Click 'Random Research' in the list to add it. To set the Blind Research percentage threshold, scroll down and find Random Research/"blind until progress"
+
+
+You can turn on Random Research without a new game by using the Development mode. Options Menu, Check on Development Mode. Press '/' Key to open the debug action list. "Make Research Random" should be last in the list. The percentage can be set by editing the save file: Add "&lt;blindThreshold&gt;0.5&lt;/blindThreshold&gt;" after the line "&lt;def&gt;RandomResearch&lt;/def&gt;"
+
+And if you turn on God Mode, this is all disabled.</description>
 	<url>https://steamcommunity.com/id/Uuugggg/myworkshopfiles/?appid=294100</url>
 </ModMetaData>
