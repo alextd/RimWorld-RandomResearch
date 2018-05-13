@@ -11,7 +11,7 @@ namespace Random_Research
 {
 	public class ScenPart_RandomResearch : ScenPart
 	{
-		private float blindThreshold;
+		public float blindThreshold;
 
 		public override void ExposeData()
 		{

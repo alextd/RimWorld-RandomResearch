@@ -20,7 +20,7 @@ namespace Random_Research
 
 		public static bool CanSeeProgress(float progress)
 		{
-			return !Active() || DebugSettings.godMode || progress >= 0.5f;
+			return !Active() || DebugSettings.godMode || progress >= Find.Scenario.AllParts.Sum(p => p is ScenPart_RandomResearch rr ? rr.blindThreshold: 0);
 		}
 
 		public static bool CanChangeCurrent()
