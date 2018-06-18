@@ -2,7 +2,7 @@
 <ModMetaData>
 	<name>Random Research</name>
 	<author>Uuugggg</author>
-	<targetVersion>0.18.0</targetVersion>
+	<targetVersion>1.0.0</targetVersion>
 	<description>A scenario option for random research, with optional blind research: You don't even know what is being researched (until a certain amount of progress is made)
 
 When choosing a scenario, Click 'Scenario Editor', Check on 'Edit mode', Click 'Add part', Click 'Random Research' in the list to add it. To set the Blind Research percentage threshold, scroll down and find Random Research/"blind until progress"
