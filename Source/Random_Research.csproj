@@ -40,9 +40,8 @@
     <Reference Include="0Harmony">
       <HintPath>..\ThirdParty\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="ResearchPal">
-      <HintPath>..\..\..\..\..\workshop\content\294100\946390822\Assemblies\ResearchPal.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="ResearchTree">
+      <HintPath>..\..\..\..\..\workshop\content\294100\946390822\Assemblies\ResearchTree.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

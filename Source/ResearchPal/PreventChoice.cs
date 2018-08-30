@@ -20,7 +20,9 @@ namespace Random_Research.ResearchPal
 		{
 			try
 			{
+				Log.Message("RR trying patch RP: Choice");
 				Patch();
+				Log.Message("RR did patch RP: Choice");
 			}
 			catch (Exception ) { }
 		}
@@ -28,12 +30,13 @@ namespace Random_Research.ResearchPal
 		public static void Patch()
 		{
 			HarmonyInstance harmony = Mod.Harmony();
-			harmony.Patch(AccessTools.Method(typeof(Node), "Draw"), null, null,
+			harmony.Patch(AccessTools.Method(typeof(ResearchNode), "Draw"), null, null,
 				new HarmonyMethod(typeof(PreventChoice), "Transpiler"));
 		}
 
 		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
+			Log.Message("Random Research transpiling Research Pal's Choice");
 			MethodInfo ButtonInvisibleInfo = AccessTools.Method(typeof(Widgets), "ButtonInvisible");
 
 			MethodInfo HideButtonInvisibleInfo = AccessTools.Method(typeof(PreventChoice), "HideButtonInvisible");
@@ -41,7 +44,10 @@ namespace Random_Research.ResearchPal
 			foreach (CodeInstruction i in instructions)
 			{
 				if (i.opcode == OpCodes.Call && i.operand == ButtonInvisibleInfo)
+				{
+					Log.Message("Random Research patched Research Pal's Button");
 					i.operand = HideButtonInvisibleInfo;
+				}
 				
 				yield return i;
 			}
