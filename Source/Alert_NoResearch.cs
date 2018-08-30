@@ -11,8 +11,8 @@ namespace Random_Research
 	{
 		public Alert_NoResearchProject()
 		{
-			this.defaultLabel = "Need Research Equipment";
-			this.defaultExplanation = "Resarch cannot proceed without proper equipment";
+			this.defaultLabel = "TD.NeedResearchEquipment".Translate();
+			this.defaultExplanation = "TD.NeedResearchEquipmentDesc".Translate();
 		}
 
 		public override AlertReport GetReport()

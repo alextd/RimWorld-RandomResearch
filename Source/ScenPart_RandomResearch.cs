@@ -26,16 +26,16 @@ namespace Random_Research
 			Rect rectL = rect.LeftHalf().Rounded();
 			Rect rectR = rect.RightHalf().Rounded();
 			Text.Anchor = TextAnchor.MiddleRight;
-			Widgets.Label(rectL, "blind until progress:");
+			Widgets.Label(rectL, "TD.BlindUntilProgess".Translate());
 			Text.Anchor = TextAnchor.UpperLeft;
 			Widgets.TextFieldPercent(rectR, ref blindThreshold, ref blindBuf, 0f, 100f);
 		}
 
 		public override string Summary(Scenario scen)
 		{
-			string text = "Research will be randomly decided.";
+			string text = "TD.RandomResearchDesc".Translate();
 			if(blindThreshold>0)
-				text += " " + String.Format("The current project is hidden until progress is {0:P0}", blindThreshold);
+				text += " " + String.Format("TD.ProjectHiddenUntilDesc".Translate(), blindThreshold);
 			return text;
 		}
 
@@ -83,8 +83,8 @@ namespace Random_Research
 				List<ScenPart> list = (List<ScenPart>)partsInfo.GetValue(Find.Scenario);
 				list.RemoveAll(p => p is ScenPart_RandomResearch);
 			};
-			DebugActionInfo.Invoke(__instance, new object[] { "Make Research Random", go });
-			DebugActionInfo.Invoke(__instance, new object[] { "Remove Random Research", noGo });
+			DebugActionInfo.Invoke(__instance, new object[] { "TD.MakeResearchRandom".Translate(), go });
+			DebugActionInfo.Invoke(__instance, new object[] { "TD.RemoveRandomResearch".Translate(), noGo });
 		}
 	}
 }

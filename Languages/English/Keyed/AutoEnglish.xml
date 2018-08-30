@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	
+	<TD.NeedResearchEquipment>Need Research Equipment</TD.NeedResearchEquipment>
+	<TD.NeedResearchEquipmentDesc>Resarch cannot proceed without proper equipment</TD.NeedResearchEquipmentDesc>
+	<TD.RandomResearch>Random Research</TD.RandomResearch>
+	<TD.BlindUntilProgress>blind until progress:</TD.BlindUntilProgress>
+	<TD.ResearchScenarioDesc>Research will be randomly decided.</TD.ResearchScenarioDesc>
+	<TD.ResearchScenarioHiddenDesc>The current project is hidden until progress is {0:P0}</TD.ResearchScenarioHiddenDesc>
+	<TD.DebugEnableRandomResearch>Make Research Random</TD.DebugEnableRandomResearch>
+	<TD.DebugDisableRandomResearch>Remove Random Research</TD.DebugDisableRandomResearch>
+	<TD.NeedResearchEquipment>Need Research Equipment</TD.NeedResearchEquipment>
+	<TD.NeedResearchEquipmentDesc>Resarch cannot proceed without proper equipment</TD.NeedResearchEquipmentDesc>
+	<TD.RandomResearch>Random Research</TD.RandomResearch>
+	<TD.BlindUntilProgess>blind until progress:</TD.BlindUntilProgess>
+	<TD.RandomResearchDesc>Research will be randomly decided.</TD.RandomResearchDesc>
+	<TD.ProjectHiddenUntilDesc>The current project is hidden until progress is {0:P0}</TD.ProjectHiddenUntilDesc>
+	<TD.MakeResearchRandom>Make Research Random</TD.MakeResearchRandom>
+	<TD.RemoveRandomResearch>Remove Random Research</TD.RemoveRandomResearch>
+	
+</LanguageData>

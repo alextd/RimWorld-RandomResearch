@@ -31,7 +31,7 @@ namespace Random_Research
 //
 //		public override string SettingsCategory()
 //		{
-//			return "Random Research";
+//			return "TD.RandomResearch".Translate();
 //		}
 	}
 }
