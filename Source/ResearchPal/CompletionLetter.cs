@@ -21,7 +21,10 @@ namespace Random_Research.ResearchPal
 			static void Prefix(ResearchProjectDef proj, bool doCompletionDialog)
 			{
 				if (!doCompletionDialog) return;
-
+				try { DoCompletionDialogEx(proj); } catch (Exception) { }
+			}
+			static void DoCompletionDialogEx(ResearchProjectDef proj)
+			{
 				MethodInfo CompletionLetterInfo = AccessTools.Method(typeof(global::ResearchPal.Queue), "DoCompletionLetter");
 				if (CompletionLetterInfo == null) return;
 
