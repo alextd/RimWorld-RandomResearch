@@ -29,7 +29,7 @@ namespace Random_Research.ResearchPal
 
 		public static void Patch()
 		{
-			HarmonyInstance harmony = Mod.Harmony();
+			HarmonyInstance harmony = HarmonyInstance.Create("Uuugggg.rimworld.Random_Research.main");
 			harmony.Patch(AccessTools.Method(typeof(ResearchNode), "Draw"), null, null,
 				new HarmonyMethod(typeof(PreventChoice), "Transpiler"));
 		}
