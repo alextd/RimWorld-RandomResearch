@@ -20,9 +20,9 @@ namespace Random_Research.ResearchPal
 		{
 			try
 			{
-				Log.Message("RR trying patch RP: Choice");
+				Log.Message($"RR trying patch RP: Choice");
 				Patch();
-				Log.Message("RR did patch RP: Choice");
+				Log.Message($"RR did patch RP: Choice");
 			}
 			catch (Exception ) { }
 		}
@@ -36,7 +36,7 @@ namespace Random_Research.ResearchPal
 
 		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
-			Log.Message("Random Research transpiling Research Pal's Choice");
+			Log.Message($"Random Research transpiling Research Pal's Choice");
 			MethodInfo ButtonInvisibleInfo = AccessTools.Method(typeof(Widgets), "ButtonInvisible");
 
 			MethodInfo HideButtonInvisibleInfo = AccessTools.Method(typeof(PreventChoice), "HideButtonInvisible");
@@ -45,7 +45,7 @@ namespace Random_Research.ResearchPal
 			{
 				if (i.opcode == OpCodes.Call && i.operand == ButtonInvisibleInfo)
 				{
-					Log.Message("Random Research patched Research Pal's Button");
+					Log.Message($"Random Research patched Research Pal's Button");
 					i.operand = HideButtonInvisibleInfo;
 				}
 				

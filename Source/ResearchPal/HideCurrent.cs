@@ -20,9 +20,9 @@ namespace Random_Research.ResearchPal
 		{
 			try
 			{
-				Log.Message("RR trying patch RP: Hide");
+				Log.Message($"RR trying patch RP: Hide");
 				Patch();
-				Log.Message("RR did patch RP: Hide");
+				Log.Message($"RR did patch RP: Hide");
 			}
 			catch (Exception) { }
 		}
@@ -36,7 +36,7 @@ namespace Random_Research.ResearchPal
 
 		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
-			Log.Message("Random Research transpiling Research Pal's HideC");
+			Log.Message($"Random Research transpiling Research Pal's HideC");
 			MethodInfo ProgressPercentInfo = AccessTools.Property(typeof(ResearchProjectDef), "ProgressPercent").GetGetMethod();
 
 			MethodInfo HideProgressPercentInfo = AccessTools.Method(typeof(HideCurrent), "HideProgressPercent");
@@ -47,7 +47,7 @@ namespace Random_Research.ResearchPal
 
 				if (i.opcode == OpCodes.Callvirt && i.operand == ProgressPercentInfo)
 				{
-					Log.Message("Random Research patched Research Pal's ProgressPercent");
+					Log.Message($"Random Research patched Research Pal's ProgressPercent");
 					yield return new CodeInstruction(OpCodes.Call, HideProgressPercentInfo);
 				}
 			}
