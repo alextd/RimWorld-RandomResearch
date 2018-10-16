@@ -8,9 +8,8 @@ using Harmony;
 using Verse;
 using RimWorld;
 using UnityEngine;
-using ResearchPal;
 
-namespace Random_Research.ResearchPal
+namespace Random_Research.ResearchTreeSupport
 {
 	//[HarmonyPatch(typeof(Node), "Draw")]
 	[StaticConstructorOnStartup]
@@ -30,8 +29,10 @@ namespace Random_Research.ResearchPal
 		public static void Patch()
 		{
 			HarmonyInstance harmony = HarmonyInstance.Create("Uuugggg.rimworld.Random_Research.main");
-			harmony.Patch(AccessTools.Method(typeof(ResearchNode), "Draw"), null, null,
-				new HarmonyMethod(typeof(PreventChoice), "Transpiler"));
+			MethodInfo patchDraw = AccessTools.Method(AccessTools.TypeByName("FluffyResearchTree.ResearchNode"), "Draw");
+			if (patchDraw == null) patchDraw = AccessTools.Method(AccessTools.TypeByName("ResearchPal.ResearchNode"), "Draw");
+			if (patchDraw != null)
+				harmony.Patch(patchDraw, null, null, new HarmonyMethod(typeof(PreventChoice), "Transpiler"));
 		}
 
 		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
