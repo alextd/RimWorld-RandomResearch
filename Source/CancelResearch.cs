@@ -36,12 +36,9 @@ namespace Random_Research
 			}
 		}
 		
-		private static FieldInfo selectedInfo = AccessTools.Field(typeof(MainTabWindow_Research), "selectedProject");
 		public static Rect DrawCancelButton(Rect rect)
 		{
-			if (Find.MainTabsRoot.OpenTab.TabWindow is MainTabWindow_Research res
-				&& selectedInfo.GetValue(res) is ResearchProjectDef proj
-				&& proj == Find.ResearchManager.currentProj
+			if (BlindResearch.SelectedResearch() == Find.ResearchManager.currentProj
 				&& BlindResearch.CanSeeCurrent())
 			{
 				Rect iconRect = rect.ContractedBy(2);

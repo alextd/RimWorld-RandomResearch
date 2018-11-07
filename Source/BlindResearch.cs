@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 using Verse;
+using RimWorld;
+using Harmony;
 
 namespace Random_Research
 {
@@ -25,7 +28,15 @@ namespace Random_Research
 
 		public static bool CanChangeCurrent()
 		{
-			return !Active() || DebugSettings.godMode;
+			return !Active() || CanSeeProgress(SelectedResearch().ProgressPercent) || DebugSettings.godMode;
+		}
+
+		public static FieldInfo selectedInfo = AccessTools.Field(typeof(MainTabWindow_Research), "selectedProject");
+		public static ResearchProjectDef SelectedResearch()
+		{
+			if(Find.MainTabsRoot?.OpenTab?.TabWindow is MainTabWindow_Research res)
+				 return selectedInfo.GetValue(res) as ResearchProjectDef;
+			return null;
 		}
 	}
 }
