@@ -21,7 +21,6 @@ namespace Random_Research.ResearchTreeSupport
 			{
 				Log.Message($"RR trying patch RP: Hide");
 				Patch();
-				Log.Message($"RR did patch RP: Hide");
 			}
 			catch (Exception) { }
 		}
@@ -33,6 +32,7 @@ namespace Random_Research.ResearchTreeSupport
 			if(patchDraw == null) patchDraw = AccessTools.Method(AccessTools.TypeByName("ResearchPal.ResearchNode"), "Draw");
 			if(patchDraw != null)
 				harmony.Patch(patchDraw, null, null, new HarmonyMethod(typeof(HideCurrent), "Transpiler"));
+			Log.Message($"RR did patch RP: Hide");
 		}
 
 		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
