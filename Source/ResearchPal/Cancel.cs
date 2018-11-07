@@ -18,7 +18,6 @@ namespace Random_Research.ResearchPal
 		{
 			try
 			{
-				Log.Message($"RR trying patch RP: Cancel");
 				Patch();
 			}
 			catch (Exception) { }
@@ -31,7 +30,6 @@ namespace Random_Research.ResearchPal
 			if (patchDrawQueue == null) patchDrawQueue = AccessTools.Method(AccessTools.TypeByName("ResearchPal.Queue"), "DrawQueue");
 			if (patchDrawQueue != null)
 				harmony.Patch(patchDrawQueue, postfix: new HarmonyMethod(typeof(Cancel), "Postfix"));
-			Log.Message($"RR did patch RP: Cancel");
 		}
 
 		public static void Postfix(Rect canvas, bool interactible)

@@ -19,7 +19,6 @@ namespace Random_Research.ResearchTreeSupport
 		{
 			try
 			{
-				Log.Message($"RR trying patch RP: Choice");
 				Patch();
 			}
 			catch (Exception ) { }
@@ -44,7 +43,6 @@ namespace Random_Research.ResearchTreeSupport
 
 		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
-			Log.Message($"Random Research transpiling Research Pal's Choice");
 			MethodInfo ButtonInvisibleInfo = AccessTools.Method(typeof(Widgets), "ButtonInvisible");
 
 			MethodInfo HideButtonInvisibleInfo = AccessTools.Method(typeof(PreventChoice), "HideButtonInvisible");
@@ -53,7 +51,6 @@ namespace Random_Research.ResearchTreeSupport
 			{
 				if (i.opcode == OpCodes.Call && i.operand == ButtonInvisibleInfo)
 				{
-					Log.Message($"Random Research patched Research Pal's Button");
 					yield return new CodeInstruction(OpCodes.Ldarg_0);
 					yield return new CodeInstruction(OpCodes.Call, HideButtonInvisibleInfo);
 				}

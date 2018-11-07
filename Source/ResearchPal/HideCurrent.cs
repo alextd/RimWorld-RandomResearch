@@ -19,7 +19,6 @@ namespace Random_Research.ResearchTreeSupport
 		{
 			try
 			{
-				Log.Message($"RR trying patch RP: Hide");
 				Patch();
 			}
 			catch (Exception) { }
@@ -32,12 +31,10 @@ namespace Random_Research.ResearchTreeSupport
 			if(patchDraw == null) patchDraw = AccessTools.Method(AccessTools.TypeByName("ResearchPal.ResearchNode"), "Draw");
 			if(patchDraw != null)
 				harmony.Patch(patchDraw, null, null, new HarmonyMethod(typeof(HideCurrent), "Transpiler"));
-			Log.Message($"RR did patch RP: Hide");
 		}
 
 		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
-			Log.Message($"Random Research transpiling Research Pal's HideC");
 			MethodInfo ProgressPercentInfo = AccessTools.Property(typeof(ResearchProjectDef), "ProgressPercent").GetGetMethod();
 
 			MethodInfo HideProgressPercentInfo = AccessTools.Method(typeof(HideCurrent), "HideProgressPercent");
@@ -48,7 +45,6 @@ namespace Random_Research.ResearchTreeSupport
 
 				if (i.opcode == OpCodes.Callvirt && i.operand == ProgressPercentInfo)
 				{
-					Log.Message($"Random Research patched Research Pal's ProgressPercent");
 					yield return new CodeInstruction(OpCodes.Call, HideProgressPercentInfo);
 				}
 			}
