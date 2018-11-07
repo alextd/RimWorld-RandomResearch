@@ -25,14 +25,21 @@ namespace Random_Research.ResearchTreeSupport
 			catch (Exception ) { }
 		}
 
+		public static FieldInfo Research;
+
 		public static void Patch()
 		{
 			HarmonyInstance harmony = HarmonyInstance.Create("Uuugggg.rimworld.Random_Research.main");
-			MethodInfo patchDraw = AccessTools.Method(AccessTools.TypeByName("FluffyResearchTree.ResearchNode"), "Draw");
-			if (patchDraw == null) patchDraw = AccessTools.Method(AccessTools.TypeByName("ResearchPal.ResearchNode"), "Draw");
+
+			Type ResearchNode = AccessTools.TypeByName("FluffyResearchTree.ResearchNode")
+				?? AccessTools.TypeByName("ResearchPal.ResearchNode");
+
+			Research = AccessTools.Field(ResearchNode, "Research");
+
+			MethodInfo patchDraw = AccessTools.Method(ResearchNode, "Draw");
 			if (patchDraw != null)
 				harmony.Patch(patchDraw, null, null, new HarmonyMethod(typeof(PreventChoice), "Transpiler"));
-			Log.Message($"RR did patch RP: Choice");
+
 		}
 
 		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -47,16 +54,20 @@ namespace Random_Research.ResearchTreeSupport
 				if (i.opcode == OpCodes.Call && i.operand == ButtonInvisibleInfo)
 				{
 					Log.Message($"Random Research patched Research Pal's Button");
-					i.operand = HideButtonInvisibleInfo;
+					yield return new CodeInstruction(OpCodes.Ldarg_0);
+					yield return new CodeInstruction(OpCodes.Call, HideButtonInvisibleInfo);
 				}
-				
-				yield return i;
+				else
+					yield return i;
 			}
 		}
 
-		public static bool HideButtonInvisible(Rect butRect, bool doMouseoverSound)
+		public static bool HideButtonInvisible(Rect butRect, bool doMouseoverSound, object obj)
 		{
-			return BlindResearch.CanChangeCurrent() ? Widgets.ButtonInvisible(butRect, doMouseoverSound) : false;
+			ResearchProjectDef selected = Research.GetValue(obj) as ResearchProjectDef;
+			if (selected == Find.ResearchManager.currentProj)
+				selected = null;
+			return BlindResearch.CanChangeTo(selected) ? Widgets.ButtonInvisible(butRect, doMouseoverSound) : false;
 		}
 	}
 }

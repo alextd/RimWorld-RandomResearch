@@ -26,9 +26,9 @@ namespace Random_Research
 			return !Active() || DebugSettings.godMode || progress >= Find.Scenario.AllParts.Sum(p => p is ScenPart_RandomResearch rr ? rr.blindThreshold: 0);
 		}
 
-		public static bool CanChangeCurrent()
+		public static bool CanChangeTo(ResearchProjectDef toThis = null)
 		{
-			return !Active() || CanSeeProgress(SelectedResearch()?.ProgressPercent ?? 0) || DebugSettings.godMode;
+			return !Active() || CanSeeProgress(toThis?.ProgressPercent ?? 0) || DebugSettings.godMode;
 		}
 
 		public static FieldInfo selectedInfo = AccessTools.Field(typeof(MainTabWindow_Research), "selectedProject");
