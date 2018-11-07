@@ -28,7 +28,7 @@ namespace Random_Research
 
 		public static bool CanChangeCurrent()
 		{
-			return !Active() || CanSeeProgress(SelectedResearch().ProgressPercent) || DebugSettings.godMode;
+			return !Active() || CanSeeProgress(SelectedResearch()?.ProgressPercent ?? 0) || DebugSettings.godMode;
 		}
 
 		public static FieldInfo selectedInfo = AccessTools.Field(typeof(MainTabWindow_Research), "selectedProject");
