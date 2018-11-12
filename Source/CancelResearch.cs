@@ -38,7 +38,8 @@ namespace Random_Research
 		
 		public static Rect DrawCancelButton(Rect rect)
 		{
-			if (BlindResearch.SelectedResearch() == Find.ResearchManager.currentProj
+			if (BlindResearch.Active()
+				&& BlindResearch.SelectedResearch() == Find.ResearchManager.currentProj
 				&& BlindResearch.CanSeeCurrent())
 			{
 				Rect iconRect = rect.ContractedBy(2);

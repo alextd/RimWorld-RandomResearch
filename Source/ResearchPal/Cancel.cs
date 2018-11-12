@@ -34,7 +34,8 @@ namespace Random_Research.ResearchPal
 
 		public static void Postfix(Rect canvas, bool interactible)
 		{
-			if (BlindResearch.CanSeeCurrent())
+			if (BlindResearch.Active()
+				&& BlindResearch.CanSeeCurrent())
 			{
 				Rect iconRect = canvas.ContractedBy(4);
 				iconRect.width = iconRect.height;
