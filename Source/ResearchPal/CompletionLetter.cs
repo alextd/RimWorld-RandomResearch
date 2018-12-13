@@ -12,7 +12,7 @@ namespace Random_Research.ResearchTreeSupport
 	class CompletionLetter
 	{
 		[HarmonyPatch(typeof(ResearchManager), "FinishProject")]
-		[HarmonyPriority(Priority.First)]
+		[HarmonyBefore(new string[] { "Fluffy.ResearchTree", "rimworld.ResearchPal" })]
 		public class DoCompletionDialog
 		{
 			//Restore completion letter when there's no queue
