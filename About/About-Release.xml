@@ -3,7 +3,7 @@
 	<name>Random Research</name>
 	<author>Uuugggg</author>
 	<supportedVersions>
-		<li>1.0.0</li>
+		<li>1.0</li>
 	</supportedVersions>
 	<description>A scenario option for random research, with optional blind research: You don't even know what is being researched (until a certain amount of progress is made)
 
