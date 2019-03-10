@@ -14,5 +14,10 @@
 	<TD.ProjectHiddenUntilDesc>The current project is hidden until progress is {0:P0}</TD.ProjectHiddenUntilDesc>
 	<TD.MakeResearchRandom>Make Research Random</TD.MakeResearchRandom>
 	<TD.RemoveRandomResearch>Remove Random Research</TD.RemoveRandomResearch>
+	<TD.ResearchKnown>Research Known</TD.ResearchKnown>
+	<TD.ResearchKnownMsg0>Apparently you are researching {0}.</TD.ResearchKnownMsg0>
+	<TD.ResearchKnownMsg1>I guess {0} is being researched.</TD.ResearchKnownMsg1>
+	<TD.ResearchKnownMsg2>It looks like the research project is {0}.</TD.ResearchKnownMsg2>
+	<TD.ResearchKnownDesc>You may pause this for another random project, and come back to it later when you choose.</TD.ResearchKnownDesc>
 	
 </LanguageData>
