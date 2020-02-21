@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Reflection.Emit;
-using Harmony;
+using HarmonyLib;
 using Verse;
 using RimWorld;
 using UnityEngine;
@@ -43,7 +43,7 @@ namespace Random_Research
 
 			foreach (CodeInstruction i in instructions)
 			{
-				if (i.opcode == OpCodes.Call && i.operand == FillableBarInfo)
+				if (i.opcode == OpCodes.Call && i.operand.Equals(FillableBarInfo))
 					i.operand = HideFillableBarInfo;
 
 				if (i.opcode == OpCodes.Bne_Un)	// if (i1 != i2)
@@ -55,7 +55,7 @@ namespace Random_Research
 				else
 					yield return i;
 
-				if (i.opcode == OpCodes.Callvirt && i.operand == GetProgressApparentInfo)
+				if (i.opcode == OpCodes.Callvirt && i.operand.Equals(GetProgressApparentInfo))
 					yield return new CodeInstruction(OpCodes.Call, HideProgressApparentInfo);
 			}
 		}
@@ -91,7 +91,7 @@ namespace Random_Research
 			foreach (CodeInstruction i in instructions)
 			{
 				yield return i;
-				if (i.opcode == OpCodes.Ldsfld && i.operand == ActiveResearchColorInfo)
+				if (i.opcode == OpCodes.Ldsfld && i.operand.Equals(ActiveResearchColorInfo))
 				{
 					yield return new CodeInstruction(OpCodes.Call, ReplaceColorInfo);
 				}

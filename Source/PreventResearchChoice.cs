@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Reflection.Emit;
-using Harmony;
+using HarmonyLib;
 using Verse;
 using RimWorld;
 using UnityEngine;
@@ -24,7 +24,7 @@ namespace Random_Research
 
 			foreach (CodeInstruction i in instructions)
 			{
-				if (i.opcode == OpCodes.Call && i.operand == ButtonTextInfo)
+				if (i.opcode == OpCodes.Call && i.operand.Equals(ButtonTextInfo))
 					i.operand = HideButtonTextInfo;
 				yield return i;
 			}

@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using Verse;
 using RimWorld;
-using Harmony;
+using HarmonyLib;
 using UnityEngine;
 
 namespace Random_Research
@@ -29,7 +29,7 @@ namespace Random_Research
 			{
 				yield return i;
 
-				if (i.opcode == OpCodes.Call && i.operand == FillableBarInfo || i.operand == HideFillableBarInfo)
+				if (i.opcode == OpCodes.Call && i.operand.Equals(FillableBarInfo) || i.operand.Equals(HideFillableBarInfo))
 				{
 					yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(CancelResearch), nameof(CancelResearch.DrawCancelButton)));
 				}

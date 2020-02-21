@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Reflection.Emit;
-using Harmony;
+using HarmonyLib;
 using Verse;
 using RimWorld;
 using UnityEngine;
@@ -28,7 +28,7 @@ namespace Random_Research.ResearchTreeSupport
 
 		public static void Patch()
 		{
-			HarmonyInstance harmony = HarmonyInstance.Create("Uuugggg.rimworld.Random_Research.main");
+			Harmony harmony = new Harmony("Uuugggg.rimworld.Random_Research.main");
 
 			Type ResearchNode = AccessTools.TypeByName("FluffyResearchTree.ResearchNode")
 				?? AccessTools.TypeByName("ResearchPal.ResearchNode");
@@ -49,7 +49,7 @@ namespace Random_Research.ResearchTreeSupport
 
 			foreach (CodeInstruction i in instructions)
 			{
-				if (i.opcode == OpCodes.Call && i.operand == ButtonInvisibleInfo)
+				if (i.opcode == OpCodes.Call && i.operand.Equals(ButtonInvisibleInfo))
 				{
 					yield return new CodeInstruction(OpCodes.Ldarg_0);
 					yield return new CodeInstruction(OpCodes.Call, HideButtonInvisibleInfo);

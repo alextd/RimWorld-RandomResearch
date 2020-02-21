@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using Verse;
-using Harmony;
+using HarmonyLib;
 using UnityEngine;
 
 namespace Random_Research.ResearchPal
@@ -25,7 +25,7 @@ namespace Random_Research.ResearchPal
 
 		public static void Patch()
 		{
-			HarmonyInstance harmony = HarmonyInstance.Create("Uuugggg.rimworld.Random_Research.main");
+			Harmony harmony = new Harmony("Uuugggg.rimworld.Random_Research.main");
 			MethodInfo patchDrawQueue = AccessTools.Method(AccessTools.TypeByName("FluffyResearchTree.Queue"), "DrawQueue");
 			if (patchDrawQueue == null) patchDrawQueue = AccessTools.Method(AccessTools.TypeByName("ResearchPal.Queue"), "DrawQueue");
 			if (patchDrawQueue != null)
