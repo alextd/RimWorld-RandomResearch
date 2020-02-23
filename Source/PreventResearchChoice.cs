@@ -32,7 +32,18 @@ namespace Random_Research
 
 		public static bool HideButtonText(Rect rect, string label, bool drawBackground, bool doMouseoverSound, bool active)
 		{
-			return BlindResearch.CanChangeTo(BlindResearch.SelectedResearch()) ? Widgets.ButtonText(rect, label, drawBackground, doMouseoverSound, active) : false;
+			bool result = false;
+
+			if (BlindResearch.CanChangeTo(BlindResearch.SelectedResearch()))
+				result = Widgets.ButtonText(rect, label, drawBackground, doMouseoverSound, active);
+			else
+			{
+				if(rect.height > 30)//Debug buttons are 30, aeh, so don't draw this for them.
+				//Same as 'in-progress'
+					Widgets.DrawHighlight(rect);
+			}
+
+			return result;
 		}
 	}
 }

@@ -57,7 +57,7 @@ namespace Random_Research
 
 		public static string InProgessString(string inProgress)
 		{
-			return BlindResearch.CanSeeCurrent() ? inProgress : "???";
+			return BlindResearch.CanSeeCurrent() ? inProgress : "";
 		}
 
 		public static Rect HideFillableBar(Rect rect, float fillPercent, Texture2D fillTex, Texture2D bgTex, bool doBorder)
