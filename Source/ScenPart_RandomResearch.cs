@@ -57,33 +57,35 @@ namespace Random_Research
 			}
 		}
 	}
+
 	[DefOf]
 	public static class ScenPartDefOf
 	{
 		public static ScenPartDef RandomResearch;
 	}
 
-		[HarmonyPatch(typeof(Dialog_DebugActionsMenu), "DoListingItems_AllModePlayActions")]
+	[HarmonyPatch(typeof(Dialog_DebugActionsMenu), "DoListingItems_AllModePlayActions")]
 	public static class Debug_AddRandomResearch
 	{
 		public static MethodInfo DebugActionInfo = AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugAction");
 		public static FieldInfo partsInfo = AccessTools.Field(typeof(Scenario), "parts");
-		public static void Postfix(Dialog_DebugActionsMenu __instance)
+
+		[DebugAction(DebugActionCategories.General, null, allowedGameStates = AllowedGameStates.Playing)]
+		public static void MakeResearchRandom()
 		{
-			Action go = () => {
-				if (BlindResearch.Active()) return;
+			if (BlindResearch.Active()) return;
 
-				List<ScenPart> list = (List<ScenPart>)partsInfo.GetValue(Find.Scenario);
-				list.Add(ScenarioMaker.MakeScenPart(ScenPartDefOf.RandomResearch));
-			};
-			Action noGo = () => {
-				if (!BlindResearch.Active()) return;
+			List<ScenPart> list = (List<ScenPart>)partsInfo.GetValue(Find.Scenario);
+			list.Add(ScenarioMaker.MakeScenPart(ScenPartDefOf.RandomResearch));
+		}
 
-				List<ScenPart> list = (List<ScenPart>)partsInfo.GetValue(Find.Scenario);
-				list.RemoveAll(p => p is ScenPart_RandomResearch);
-			};
-			DebugActionInfo.Invoke(__instance, new object[] { "TD.MakeResearchRandom".Translate(), go });
-			DebugActionInfo.Invoke(__instance, new object[] { "TD.RemoveRandomResearch".Translate(), noGo });
+		[DebugAction(DebugActionCategories.General, null, allowedGameStates = AllowedGameStates.Playing)]
+		public static void RemoveRandomResearch()
+		{
+			if (!BlindResearch.Active()) return;
+
+			List<ScenPart> list = (List<ScenPart>)partsInfo.GetValue(Find.Scenario);
+			list.RemoveAll(p => p is ScenPart_RandomResearch);
 		}
 	}
 }
