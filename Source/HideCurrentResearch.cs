@@ -37,7 +37,7 @@ namespace Random_Research
 				{ typeof(Rect), typeof(float), typeof(Texture2D), typeof(Texture2D), typeof(bool)});
 			MethodInfo GetProgressApparentInfo = AccessTools.Property(typeof(ResearchProjectDef), "ProgressApparent").GetGetMethod();
 
-			MethodInfo AndShowIt = AccessTools.Method(typeof(HideCurrentResearch_LeftRect), "AndShowIt");
+			MethodInfo InProgessStringInfo = AccessTools.Method(typeof(HideCurrentResearch_LeftRect), nameof(InProgessString));
 			MethodInfo HideFillableBarInfo = AccessTools.Method(typeof(HideCurrentResearch_LeftRect), "HideFillableBar");
 			MethodInfo HideProgressApparentInfo = AccessTools.Method(typeof(HideCurrentResearch_LeftRect), "HideProgressApparent");
 
@@ -46,23 +46,18 @@ namespace Random_Research
 				if (i.opcode == OpCodes.Call && i.operand.Equals(FillableBarInfo))
 					i.operand = HideFillableBarInfo;
 
-				if (i.opcode == OpCodes.Bne_Un)	// if (i1 != i2)
-				{
-					yield return new CodeInstruction(OpCodes.Ceq);//bool result = i1 == i2
-					yield return new CodeInstruction(OpCodes.Call, AndShowIt);	//result = AndShowIt(result)
-					yield return new CodeInstruction(OpCodes.Brfalse, i.operand);//if (!result)
-				}
-				else
-					yield return i;
+				yield return i;
+				if (i.opcode == OpCodes.Ldstr && (i.operand as string).Equals("InProgress"))
+					yield return new CodeInstruction(OpCodes.Call, InProgessStringInfo);
 
 				if (i.opcode == OpCodes.Callvirt && i.operand.Equals(GetProgressApparentInfo))
 					yield return new CodeInstruction(OpCodes.Call, HideProgressApparentInfo);
 			}
 		}
 
-		public static bool AndShowIt(bool selectedCurrent)
+		public static string InProgessString(string inProgress)
 		{
-			return selectedCurrent && BlindResearch.CanSeeCurrent();
+			return BlindResearch.CanSeeCurrent() ? inProgress : "???";
 		}
 
 		public static Rect HideFillableBar(Rect rect, float fillPercent, Texture2D fillTex, Texture2D bgTex, bool doBorder)
