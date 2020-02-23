@@ -22,23 +22,12 @@ namespace Random_Research
 				|| !BlindResearch.Active())
 					return false;
 
-			bool hasBench = false;
-			List<Map> maps = Find.Maps;
-			for (int i = 0; i < maps.Count; i++)
-			{
-				if (maps[i].IsPlayerHome)
-				{
-					if (maps[i].listerBuildings.ColonistsHaveResearchBench())
-					{
-						hasBench = true;
-						break;
-					}
-				}
-			}
-			if (!hasBench) return false;
-
-			return !Find.ResearchManager.AnyProjectIsAvailable &&
-				 DefDatabase<ResearchProjectDef>.AllDefsListForReading.Any(x => !x.IsFinished);
+			foreach(Map map in Find.Maps)
+				if (map.IsPlayerHome && map.listerBuildings.ColonistsHaveResearchBench())
+						return !Find.ResearchManager.AnyProjectIsAvailable &&
+						DefDatabase<ResearchProjectDef>.AllDefsListForReading.Any(x => !x.IsFinished);
+				
+			return false;
 		}
 	}
 }
