@@ -49,7 +49,7 @@ namespace Random_Research.ResearchTreeSupport
 
 			foreach (CodeInstruction i in instructions)
 			{
-				if (i.opcode == OpCodes.Call && i.operand.Equals(ButtonInvisibleInfo))
+				if (i.Calls(ButtonInvisibleInfo))
 				{
 					yield return new CodeInstruction(OpCodes.Ldarg_0);
 					yield return new CodeInstruction(OpCodes.Call, HideButtonInvisibleInfo);

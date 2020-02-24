@@ -24,7 +24,7 @@ namespace Random_Research
 
 			foreach (CodeInstruction i in instructions)
 			{
-				if (i.opcode == OpCodes.Call && i.operand.Equals(ButtonTextInfo))
+				if (i.Calls(ButtonTextInfo))
 					i.operand = HideButtonTextInfo;
 				yield return i;
 			}

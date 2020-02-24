@@ -43,14 +43,14 @@ namespace Random_Research
 
 			foreach (CodeInstruction i in instructions)
 			{
-				if (i.opcode == OpCodes.Call && i.operand.Equals(FillableBarInfo))
+				if (i.Calls(FillableBarInfo))
 					i.operand = HideFillableBarInfo;
 
 				yield return i;
 				if (i.opcode == OpCodes.Ldstr && (i.operand as string).Equals("InProgress"))
 					yield return new CodeInstruction(OpCodes.Call, InProgessStringInfo);
 
-				if (i.opcode == OpCodes.Callvirt && i.operand.Equals(GetProgressApparentInfo))
+				if (i.Calls(GetProgressApparentInfo))
 					yield return new CodeInstruction(OpCodes.Call, HideProgressApparentInfo);
 			}
 		}
@@ -86,7 +86,7 @@ namespace Random_Research
 			foreach (CodeInstruction i in instructions)
 			{
 				yield return i;
-				if (i.opcode == OpCodes.Ldsfld && i.operand.Equals(ActiveResearchColorInfo))
+				if (i.LoadsField(ActiveResearchColorInfo))
 				{
 					yield return new CodeInstruction(OpCodes.Call, ReplaceColorInfo);
 				}

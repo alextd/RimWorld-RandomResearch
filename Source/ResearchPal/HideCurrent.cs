@@ -43,7 +43,7 @@ namespace Random_Research.ResearchTreeSupport
 			{
 				yield return i;
 
-				if (i.opcode == OpCodes.Callvirt && i.operand.Equals(ProgressPercentInfo))
+				if (i.Calls(ProgressPercentInfo))
 				{
 					yield return new CodeInstruction(OpCodes.Call, HideProgressPercentInfo);
 				}
