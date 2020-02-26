@@ -64,7 +64,6 @@ namespace Random_Research
 		public static ScenPartDef RandomResearch;
 	}
 
-	[HarmonyPatch(typeof(Dialog_DebugActionsMenu), "DoListingItems_AllModePlayActions")]
 	public static class Debug_AddRandomResearch
 	{
 		public static MethodInfo DebugActionInfo = AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugAction");
