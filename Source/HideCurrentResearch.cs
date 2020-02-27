@@ -44,9 +44,9 @@ namespace Random_Research
 			foreach (CodeInstruction i in instructions)
 			{
 				if (i.Calls(FillableBarInfo))
-					i.operand = HideFillableBarInfo;
-
-				yield return i;
+					yield return new CodeInstruction(OpCodes.Call, HideFillableBarInfo);
+				else 
+					yield return i;
 				if (i.opcode == OpCodes.Ldstr && (i.operand as string).Equals("InProgress"))
 					yield return new CodeInstruction(OpCodes.Call, InProgessStringInfo);
 
