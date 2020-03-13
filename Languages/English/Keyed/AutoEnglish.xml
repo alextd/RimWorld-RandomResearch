@@ -2,7 +2,7 @@
 <LanguageData>
 	
 	<TD.NeedResearchEquipment>Need Research Equipment</TD.NeedResearchEquipment>
-	<TD.NeedResearchEquipmentDesc>Resarch cannot proceed without proper equipment</TD.NeedResearchEquipmentDesc>
+	<TD.NeedResearchEquipmentDesc>Resarch cannot proceed without proper equipment (and maybe techprints?)</TD.NeedResearchEquipmentDesc>
 	<TD.RandomResearch>Random Research</TD.RandomResearch>
 	<TD.BlindUntilProgress>blind until progress:</TD.BlindUntilProgress>
 	<TD.ResearchScenarioDesc>Research will be randomly decided.</TD.ResearchScenarioDesc>
