@@ -15,14 +15,15 @@ namespace Random_Research
 	class HideCurrentResearch_Open
 	{
 		//public override void PreOpen()
-		public static MethodInfo SetCurTab = AccessTools.Property(typeof(MainTabWindow_Research), "CurTab").GetSetMethod(true);
+
+		delegate void CurTabDel(MainTabWindow_Research tab, ResearchTabDef def);
+		static CurTabDel CurTabSet = AccessTools.MethodDelegate<CurTabDel>(AccessTools.Property(typeof(MainTabWindow_Research), "CurTab").GetSetMethod(true));
 		public static void Postfix(MainTabWindow_Research __instance, ref ResearchProjectDef ___selectedProject)
 		{
 			if (BlindResearch.CanSeeCurrent()) return;
 
 			___selectedProject = null;
-			//__instance.selectedProject = null;
-			SetCurTab.Invoke(__instance, new object[] { ResearchTabDefOf.Main });
+			CurTabSet(__instance, ResearchTabDefOf.Main);
 			//__instance.CurTab = ResearchTabDefOf.Main;
 		}
 	}

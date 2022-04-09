@@ -66,6 +66,8 @@ namespace Random_Research
 
 	public static class Debug_AddRandomResearch
 	{
+		//I don't care to improve reflection here for debug actions
+		
 		public static FieldInfo partsInfo = AccessTools.Field(typeof(Scenario), "parts");
 
 		[DebugAction(DebugActionCategories.General, null, allowedGameStates = AllowedGameStates.Playing)]

@@ -23,15 +23,23 @@ namespace Random_Research.ResearchTreeSupport
 				if (!doCompletionDialog || !BlindResearch.Active()) return;
 				try { DoCompletionDialogEx(proj); } catch (Exception) { }
 			}
-			static void DoCompletionDialogEx(ResearchProjectDef proj)
+
+			//        private static void DoCompletionLetter( ResearchProjectDef current, ResearchProjectDef next )
+
+			public static Delegate DoCompletionLetter;
+			static DoCompletionDialog()
 			{
 				MethodInfo CompletionLetterInfo = AccessTools.Method(AccessTools.TypeByName("ResearchPal.Queue"), "DoCompletionLetter");
-				if (CompletionLetterInfo == null) 
+				if (CompletionLetterInfo == null)
 					CompletionLetterInfo = AccessTools.Method(AccessTools.TypeByName("FluffyResearchTree.Queue"), "DoCompletionLetter");
 
 				if (CompletionLetterInfo == null) return;
 
-				CompletionLetterInfo.Invoke(null, new object[] { proj, null});
+				DoCompletionLetter = CompletionLetterInfo.CreateDelegate(typeof(Action<ResearchProjectDef, ResearchProjectDef>));
+			}
+			static void DoCompletionDialogEx(ResearchProjectDef proj)
+			{
+				DoCompletionLetter.DynamicInvoke(proj, null);
 			}
 		}
 	}
