@@ -31,11 +31,11 @@ namespace Random_Research
 			return !Active() || CanSeeProgress(toThis?.ProgressPercent ?? 0) || DebugSettings.godMode;
 		}
 
-		public static FieldInfo selectedInfo = AccessTools.Field(typeof(MainTabWindow_Research), "selectedProject");
+		public static AccessTools.FieldRef<MainTabWindow_Research, ResearchProjectDef> selectedProject = AccessTools.FieldRefAccess<MainTabWindow_Research, ResearchProjectDef>("selectedProject");
 		public static ResearchProjectDef SelectedResearch()
 		{
-			if(Find.MainTabsRoot?.OpenTab?.TabWindow is MainTabWindow_Research res)
-				 return selectedInfo.GetValue(res) as ResearchProjectDef;
+			if (Find.MainTabsRoot?.OpenTab?.TabWindow is MainTabWindow_Research res)
+				return selectedProject(res);
 			return null;
 		}
 	}
