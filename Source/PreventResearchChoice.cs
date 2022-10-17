@@ -18,7 +18,7 @@ namespace Random_Research
 		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
 			MethodInfo ButtonTextInfo = AccessTools.Method(typeof(Widgets), "ButtonText", new Type[]
-				{typeof(Rect), typeof(string), typeof(bool), typeof(bool), typeof(bool)});
+				{typeof(Rect), typeof(string), typeof(bool), typeof(bool), typeof(bool), typeof(TextAnchor?)});
 
 			MethodInfo HideButtonTextInfo = AccessTools.Method(typeof(PreventResearchChoice), "HideButtonText");
 
@@ -31,12 +31,12 @@ namespace Random_Research
 			}
 		}
 
-		public static bool HideButtonText(Rect rect, string label, bool drawBackground, bool doMouseoverSound, bool active)
+		public static bool HideButtonText(Rect rect, string label, bool drawBackground, bool doMouseoverSound, bool active, TextAnchor? overrideTextAnchor)
 		{
 			bool result = false;
 
 			if (BlindResearch.CanChangeTo(BlindResearch.SelectedResearch()))
-				result = Widgets.ButtonText(rect, label, drawBackground, doMouseoverSound, active);
+				result = Widgets.ButtonText(rect, label, drawBackground, doMouseoverSound, active, overrideTextAnchor);
 			else
 			{
 				if(rect.height > 30)//Debug buttons are 30, aeh, so don't draw this for them.
