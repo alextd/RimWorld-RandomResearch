@@ -7,6 +7,8 @@ using UnityEngine;
 using Verse;
 using RimWorld;
 
+using LudeonTK;
+
 namespace Random_Research
 {
 	public class ScenPart_RandomResearch : ScenPart

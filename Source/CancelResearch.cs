@@ -25,7 +25,7 @@ namespace Random_Research
 			
 
 			foreach (CodeInstruction i in instructions)
-			{
+			{	
 				yield return i;
 
 				if (i.Calls(FillableBarInfo) || i.Calls(HideFillableBarInfo))
