@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Random_Research
 {
-	[HarmonyPatch(typeof(MainTabWindow_Research), "DrawLeftRect")]
+	[HarmonyPatch(typeof(MainTabWindow_Research), "DrawProjectProgress")]
 	static class CancelResearch
 	{
 		//private void DrawLeftRect(Rect leftOutRect)
@@ -21,7 +21,7 @@ namespace Random_Research
 			MethodInfo FillableBarInfo = AccessTools.Method(typeof(Widgets), "FillableBar", new Type[]
 				{ typeof(Rect), typeof(float), typeof(Texture2D), typeof(Texture2D), typeof(bool)});
 			//Whoops this method is replaced so let's patch it too:
-			MethodInfo HideFillableBarInfo = AccessTools.Method(typeof(HideCurrentResearch_LeftRect), "HideFillableBar");
+			MethodInfo HideFillableBarInfo = AccessTools.Method(typeof(CancelResearch), "HideFillableBar");
 			
 
 			foreach (CodeInstruction i in instructions)
@@ -34,11 +34,17 @@ namespace Random_Research
 				}
 			}
 		}
-		
+
+		public static Rect HideFillableBar(Rect rect, float fillPercent, Texture2D fillTex, Texture2D bgTex, bool doBorder)
+		{
+			if (!BlindResearch.CanSeeProgress(fillPercent))
+				fillPercent = 0;
+			return Widgets.FillableBar(rect, fillPercent, fillTex, bgTex, doBorder);
+		}
+
 		public static Rect DrawCancelButton(Rect rect)
 		{
 			if (BlindResearch.Active()
-				&& BlindResearch.SelectedResearch() == Find.ResearchManager.currentProj
 				&& BlindResearch.CanSeeCurrent())
 			{
 				Rect iconRect = rect.ContractedBy(2);

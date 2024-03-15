@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Random_Research
 {
-	[HarmonyPatch(typeof(MainTabWindow_Research), "DrawLeftRect")]
+	[HarmonyPatch(typeof(MainTabWindow_Research), "DrawStartButton")]
 	class PreventResearchChoice
 	{
 		//private void DrawLeftRect(Rect leftOutRect)
